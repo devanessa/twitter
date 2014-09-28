@@ -11,7 +11,7 @@ import Social
 import Accounts
 
 class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var statuses: [Status]?
+    var tweets: [Tweet]?
     
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
@@ -23,7 +23,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         })
     }
     
-    var urlSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
+    @IBAction func logoutUser(sender: AnyObject) {
+        User.currentUser?.logout()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,56 +35,11 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.dataSource = self
         
 //        refreshControl.tintColor = UIColor.whiteColor()
-        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh", attributes: [NSForegroundColorAttributeName : UIColor.whiteColor()])
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh", attributes: [NSForegroundColorAttributeName : UIColor.blackColor()])
         refreshControl.addTarget(self, action: Selector("refreshData"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refreshControl)
-        
-        let accountStore = ACAccountStore()
-        let accountType = accountStore.accountTypeWithAccountTypeIdentifier(ACAccountTypeIdentifierTwitter)
-        accountStore.requestAccessToAccountsWithType(accountType, options: nil) { (success, error) in
-            if success {
-                let accounts = accountStore.accountsWithAccountType(accountType)
-                NSLog("Accounts: \(accounts)")
-                let url = NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json") //test for nil or unicode-safe parsing library!
-//                let url = NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json")
-                
-                let authRequest = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: .GET, URL: url, parameters: nil)
-                if accounts.count == 0 {
-                    NSLog("Accounts is empty")
-                } else {
-                    authRequest.account = accounts[0] as ACAccount
-                    
-                    let request = authRequest.preparedURLRequest()
-                    
-                    // Wrap this in resource
-                    let task = self.urlSession.dataTaskWithRequest(request, completionHandler: { (data, response, error) in
-                        if error != nil {
-                            NSLog("error getting timeline")
-                        } else {
-                            let array = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSArray
-                            
-                            var statusArray:[Status] = Array()
-                            for obj in array {
-                                let dictionary = obj as NSDictionary
-                                statusArray.append(Status(dictionary: dictionary))
-                            }
-                            
-                            dispatch_async(dispatch_get_main_queue(), {
-                                self.statuses = statusArray
-                                self.tableView.reloadData()
-                                
-                            }) // always run on main thread
-                            
-                            NSLog("Got dictionary: \(array)")
-                        }
-                    })
-                    task.resume()   // This will actualy kick off the request
-                }
-            } else {
-                NSLog("Error: \(error)")
-            }
-            
-        }
+
+        fetchTweets()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -93,29 +50,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func fetchTweets() {
+        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
+            self.tweets = tweets
+            self.tableView.reloadData()
+        })
+    }
 
     func refreshData() {
-        // Call api instead
-        tableView.reloadData()
+        fetchTweets()
         refreshControl.endRefreshing()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let status = statuses![indexPath.row]
-        if status.retweet != nil {
+        let tweet = tweets![indexPath.row]
+        if tweet.retweet != nil {
             let cell = tableView.dequeueReusableCellWithIdentifier("retweetCell") as RetweetTableViewCell
-            cell.populateCellFromStatus(status)
+            cell.populateCellFromTweet(tweet)
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as TweetTableViewCell
-            cell.populateCellFromStatus(status)
+            cell.populateCellFromTweet(tweet)
             return cell
         }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.statuses != nil {
-            return self.statuses!.count
+        if self.tweets != nil {
+            return self.tweets!.count
         } else {
             return 0
         }
@@ -124,5 +87,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         tableView.reloadData()
     }
+    
+
 }
 

@@ -28,11 +28,11 @@ class TweetTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func populateCellFromStatus(status: Status) {
-        displayNameLabel.text = status.user.displayName
-        tweetLabel.text = status.text
-        twitterHandleLabel.text = "@\(status.user.handle)"  // make this attributed?
-        userImageView.setImageWithURL(NSURL(string: status.user.profileImgUrl))
+    func populateCellFromTweet(tweet: Tweet) {
+        displayNameLabel.text = tweet.user.displayName
+        tweetLabel.text = tweet.text
+        twitterHandleLabel.text = "@\(tweet.user.handle)"  // make this attributed?
+        userImageView.setImageWithURL(NSURL(string: tweet.user.profileImgUrl))
         UIView.animateWithDuration(0.2, animations: {
             self.userImageView.alpha = 1.0
         })
@@ -59,12 +59,12 @@ class RetweetTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func populateCellFromStatus(status: Status) {
-        let retweetStatus = status.retweet!
+    func populateCellFromTweet(tweet: Tweet) {
+        let retweetStatus = tweet.retweet!
         displayNameLabel.text = retweetStatus.user.displayName
         retweetLabel.text = retweetStatus.text
         twitterHandleLabel.text = "@\(retweetStatus.user.handle)"  // make this attributed?
-        retweeterLabel.text = "\(status.user.displayName) retweeted"
+        retweeterLabel.text = "\(tweet.user.displayName) retweeted"
         userImageView.setImageWithURL(NSURL(string: retweetStatus.user.profileImgUrl))
         UIView.animateWithDuration(0.2, animations: {
             self.userImageView.alpha = 1.0

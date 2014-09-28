@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="veG-pc-jhL">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0g6-Mn-7L6">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -8,7 +8,7 @@
         <!--Home-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="ViewController" customModule="twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TweetsViewController" id="vXZ-lx-hvc" customClass="ViewController" customModule="twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
@@ -47,8 +47,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tweet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSO-55-zxg">
-                                                    <rect key="frame" x="74" y="32" width="503" height="44.5"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <rect key="frame" x="74" y="32" width="503" height="49.5"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -65,7 +65,7 @@
                                                 <constraint firstItem="AEl-la-VIz" firstAttribute="top" secondItem="lzr-2V-Gar" secondAttribute="topMargin" constant="6" id="Bjj-HR-kNT"/>
                                                 <constraint firstItem="Nk2-cG-BI3" firstAttribute="top" secondItem="lzr-2V-Gar" secondAttribute="topMargin" constant="6" id="GbR-5f-tYn"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="Nk2-cG-BI3" secondAttribute="trailing" constant="10" id="H3s-Jg-qhB"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="SSO-55-zxg" secondAttribute="bottom" constant="15" id="MLv-Ye-LFa"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="SSO-55-zxg" secondAttribute="bottom" constant="10" id="MLv-Ye-LFa"/>
                                                 <constraint firstItem="AEl-la-VIz" firstAttribute="leading" secondItem="lzr-2V-Gar" secondAttribute="leadingMargin" constant="10" id="R6m-Hh-LEI"/>
                                                 <constraint firstItem="3ti-YB-V53" firstAttribute="leading" secondItem="AEl-la-VIz" secondAttribute="trailing" constant="8" id="WwI-Qy-Ead"/>
                                                 <constraint firstItem="SSO-55-zxg" firstAttribute="top" secondItem="lzr-2V-Gar" secondAttribute="topMargin" constant="24" id="Zo1-lb-QfO"/>
@@ -110,8 +110,8 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Retweet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RS3-Uc-4ZL">
-                                                    <rect key="frame" x="74" y="53" width="503" height="51"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <rect key="frame" x="74" y="53" width="503" height="67.5"/>
+                                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -151,7 +151,7 @@
                                                 <constraint firstItem="Y8r-hz-gR6" firstAttribute="top" secondItem="Y6t-mQ-Qs5" secondAttribute="topMargin" constant="5" id="cc7-I7-Hgw"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="tnn-oB-alo" secondAttribute="trailing" constant="10" id="eFa-Wu-DlQ"/>
                                                 <constraint firstItem="RS3-Uc-4ZL" firstAttribute="top" secondItem="Y6t-mQ-Qs5" secondAttribute="topMargin" constant="45" id="fex-7c-Tcv"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="RS3-Uc-4ZL" secondAttribute="bottom" constant="26.5" id="gNR-Bq-46Y"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="RS3-Uc-4ZL" secondAttribute="bottom" constant="10" id="gNR-Bq-46Y"/>
                                                 <constraint firstItem="eSv-Xl-Yng" firstAttribute="top" secondItem="dsi-DS-IsW" secondAttribute="bottom" constant="6" id="gPg-gK-1Iz"/>
                                                 <constraint firstItem="Y8r-hz-gR6" firstAttribute="leading" secondItem="Y6t-mQ-Qs5" secondAttribute="leadingMargin" constant="40" id="wbI-LA-dfP"/>
                                             </constraints>
@@ -177,6 +177,12 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="X7G-Td-ozN">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="z4y-zQ-hqP">
+                            <color key="tintColor" red="0.47058826679999999" green="0.83921575550000005" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
+                            <connections>
+                                <action selector="logoutUser:" destination="vXZ-lx-hvc" id="8P9-VU-TSR"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="7pZ-Jm-4d6">
                             <color key="tintColor" red="0.47058826679999999" green="0.83921575550000005" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
                             <connections>
@@ -269,12 +275,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lOp-hU-4RD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1793" y="115"/>
+            <point key="canvasLocation" x="1759" y="115"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="F49-B3-F4z">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="veG-pc-jhL" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="TweetsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="veG-pc-jhL" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" id="dFh-2w-yfc">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -293,6 +299,42 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zb7-cp-JsR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="449" y="115"/>
+        </scene>
+        <!--Login View Controller-->
+        <scene sceneID="Bxt-Mg-lqc">
+            <objects>
+                <viewController id="0g6-Mn-7L6" customClass="LoginViewController" customModule="twitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="U5C-xq-kBm"/>
+                        <viewControllerLayoutGuide type="bottom" id="cg1-vQ-gC1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="SX0-sx-0xG">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aTx-0M-tAk">
+                                <rect key="frame" x="279" y="285" width="43" height="30"/>
+                                <state key="normal" title="Login!">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onLogin:" destination="0g6-Mn-7L6" eventType="touchUpInside" id="hNg-iB-EWM"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="aTx-0M-tAk" secondAttribute="centerX" id="56I-Ng-2Da"/>
+                            <constraint firstAttribute="centerY" secondItem="aTx-0M-tAk" secondAttribute="centerY" id="lFh-gE-sn2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <segue destination="veG-pc-jhL" kind="presentation" identifier="loginSegue" id="7O7-4D-79d"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MOj-pa-pHD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-213" y="115"/>
         </scene>
     </scenes>
     <resources>

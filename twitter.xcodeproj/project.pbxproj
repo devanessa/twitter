@@ -17,10 +17,11 @@
 		54F6F91819D3BBCB00D07CE3 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F6F91719D3BBCB00D07CE3 /* Accounts.framework */; };
 		54F6F91A19D3BBD100D07CE3 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54F6F91919D3BBD100D07CE3 /* Social.framework */; };
 		54F6F91C19D3C32A00D07CE3 /* TwitterTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6F91B19D3C32A00D07CE3 /* TwitterTableViewCell.swift */; };
-		54F6F92019D3C53800D07CE3 /* Status.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6F91F19D3C53800D07CE3 /* Status.swift */; };
+		54F6F92019D3C53800D07CE3 /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6F91F19D3C53800D07CE3 /* Tweet.swift */; };
 		54F6F92219D3C86800D07CE3 /* ComposerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54F6F92119D3C86800D07CE3 /* ComposerViewController.swift */; };
 		54FB8CC019D6907C00AB78E9 /* TwitterClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FB8CBF19D6907C00AB78E9 /* TwitterClient.swift */; };
 		54FB8CC419D76BDF00AB78E9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FB8CC319D76BDF00AB78E9 /* User.swift */; };
+		54FB8CC619D78A5E00AB78E9 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54FB8CC519D78A5E00AB78E9 /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,11 +49,12 @@
 		54F6F91719D3BBCB00D07CE3 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		54F6F91919D3BBD100D07CE3 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		54F6F91B19D3C32A00D07CE3 /* TwitterTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterTableViewCell.swift; sourceTree = "<group>"; };
-		54F6F91F19D3C53800D07CE3 /* Status.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Status.swift; sourceTree = "<group>"; };
+		54F6F91F19D3C53800D07CE3 /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		54F6F92119D3C86800D07CE3 /* ComposerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComposerViewController.swift; sourceTree = "<group>"; };
 		54FB8CBC19D6901C00AB78E9 /* twitter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "twitter-Bridging-Header.h"; sourceTree = "<group>"; };
 		54FB8CBF19D6907C00AB78E9 /* TwitterClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TwitterClient.swift; sourceTree = "<group>"; };
 		54FB8CC319D76BDF00AB78E9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		54FB8CC519D78A5E00AB78E9 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		8BE320A375B74E7496C5B339 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -154,6 +156,7 @@
 			children = (
 				54F6F8F919D3BB3A00D07CE3 /* ViewController.swift */,
 				54F6F92119D3C86800D07CE3 /* ComposerViewController.swift */,
+				54FB8CC519D78A5E00AB78E9 /* LoginViewController.swift */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -161,7 +164,7 @@
 		54FB8CC219D76BBE00AB78E9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				54F6F91F19D3C53800D07CE3 /* Status.swift */,
+				54F6F91F19D3C53800D07CE3 /* Tweet.swift */,
 				54FB8CC319D76BDF00AB78E9 /* User.swift */,
 			);
 			name = Models;
@@ -314,8 +317,9 @@
 				54F6F92219D3C86800D07CE3 /* ComposerViewController.swift in Sources */,
 				54F6F8F819D3BB3A00D07CE3 /* AppDelegate.swift in Sources */,
 				54F6F91C19D3C32A00D07CE3 /* TwitterTableViewCell.swift in Sources */,
+				54FB8CC619D78A5E00AB78E9 /* LoginViewController.swift in Sources */,
 				54FB8CC019D6907C00AB78E9 /* TwitterClient.swift in Sources */,
-				54F6F92019D3C53800D07CE3 /* Status.swift in Sources */,
+				54F6F92019D3C53800D07CE3 /* Tweet.swift in Sources */,
 				54FB8CC419D76BDF00AB78E9 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
