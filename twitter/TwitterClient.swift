@@ -34,7 +34,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
             var tweets = Tweet.tweetsWithArray(response as [NSDictionary])
             completion(tweets: tweets, error: nil)
         }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-            println("error getting current user")
+            println("error getting tweets: \(error)")
             completion(tweets: nil, error: error)
         })
 

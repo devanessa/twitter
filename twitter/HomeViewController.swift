@@ -17,10 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var refreshControl = UIRefreshControl()
     
     @IBAction func didTapNew(sender: AnyObject) {
-        let composer = ComposerViewController(nibName: nil, bundle: nil)
-        self.navigationController?.presentViewController(composer, animated: true, completion: {
-            
-        })
+        self.performSegueWithIdentifier("detailSegue", sender: self)
     }
     
     @IBAction func logoutUser(sender: AnyObject) {
@@ -34,7 +31,6 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
-//        refreshControl.tintColor = UIColor.whiteColor()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh", attributes: [NSForegroundColorAttributeName : UIColor.blackColor()])
         refreshControl.addTarget(self, action: Selector("refreshData"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refreshControl)
@@ -84,6 +80,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("tweetDetails", sender: tableView)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "tweetDetails") {
+            var statusViewController = segue.destinationViewController as StatusViewController
+            
+            let indexPath = tableView.indexPathForSelectedRow()
+            let tweet = tweets![indexPath!.row]
+            
+            statusViewController.tweet = tweet
+        }
+
+    }
+
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         tableView.reloadData()
     }
