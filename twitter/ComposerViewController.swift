@@ -22,7 +22,7 @@ class ComposerViewController: UIViewController, UITextViewDelegate {
     
     var tweetToReply: Tweet?
     
-    var delegate: StatusUpdateDelegate?
+    var delegate: StatusPostDelegate?
     
     @IBAction func didCancel(sender: AnyObject) {
         self.dismissViewControllerAnimated(true, completion: nil)
@@ -31,16 +31,18 @@ class ComposerViewController: UIViewController, UITextViewDelegate {
     @IBAction func didPost(sender: AnyObject) {
         var postedTweet: Tweet?
         if tweetToReply != nil {
-            postedTweet = tweetToReply?.replyToTweet(statusTextView.text)
+            tweetToReply?.replyToTweet(statusTextView.text, completion: handlePostResponse)
         } else {
-            Tweet.postTweet(statusTextView.text) { (response, error) -> () in
-                if response != nil {
-                    println("success posting tweet!")
-                    self.delegate?.didPostTweet(response!)
-                } else {
-                    println(error)
-                }
-            }
+            Tweet.postTweet(statusTextView.text, completion: handlePostResponse)
+        }
+    }
+    
+    func handlePostResponse(response: Tweet?, error: NSError?) {
+        if response != nil {
+            println("success posting tweet!")
+            self.delegate?.didPostTweet(response!)
+        } else {
+            println(error)
         }
     }
     

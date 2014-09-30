@@ -8,9 +8,12 @@
 
 import UIKit
 
-class StatusViewController: UIViewController {
+class StatusViewController: UIViewController, StatusPostDelegate {
     var tweet: Tweet!
     var mainTweet: Tweet!
+    var rowIndex: Int!
+    
+    var delegate: StatusUpdateDelegate?
     
     @IBOutlet weak var displayNameLabel: UILabel!
     @IBOutlet weak var handleLabel: UILabel!
@@ -83,7 +86,7 @@ class StatusViewController: UIViewController {
         if retweeted! {
             retweetButton.setImage(retweetedImg, forState: .Normal)
             if toggle {
-                mainTweet.postRetweet()
+//                mainTweet.postRetweet()
                 retweetCount.text = "\(mainTweet.retweetCount + 1)"
             }
         } else {
@@ -113,7 +116,12 @@ class StatusViewController: UIViewController {
         if (segue.identifier == "replySegue") {
             var composerViewController = segue.destinationViewController as ComposerViewController
             composerViewController.tweetToReply = mainTweet
+            composerViewController.delegate = self
         }
     }
-
+    
+    func didPostTweet(tweet: Tweet) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        delegate?.didPostReply(tweet)
+    }
 }

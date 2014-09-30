@@ -10,7 +10,7 @@ import UIKit
 import Social
 import Accounts
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, StatusUpdateDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, StatusPostDelegate, StatusUpdateDelegate {
     var tweets: [Tweet]?
     
     @IBOutlet weak var tableView: UITableView!
@@ -92,7 +92,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let indexPath = tableView.indexPathForSelectedRow()
             let tweet = tweets![indexPath!.row]
             
+            statusViewController.delegate = self
             statusViewController.tweet = tweet
+            
         } else if (segue.identifier == "composeSegue") {
             var composerVC = segue.destinationViewController as ComposerViewController
             
@@ -101,6 +103,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
 
     }
 
+    func didPostReply(tweet: Tweet) {
+        insertTweetAtTop(tweet)
+    }
+    
+    func didUpdateDataAtRow(row: Int, tweet: Tweet) {
+        // update cell view?
+    }
+    
     func didPostTweet(tweet: Tweet) {
         self.dismissViewControllerAnimated(true, completion: nil)
         insertTweetAtTop(tweet)

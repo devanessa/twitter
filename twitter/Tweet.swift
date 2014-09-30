@@ -57,46 +57,22 @@ class Tweet: NSObject {
     }
 
     // retweet
-    func postRetweet() -> Tweet? {
-        var tweet: Tweet?
-        TwitterClient.sharedInstance.retweetWithId(self.identifier) { (response, error) -> () in
-            if response != nil {
-                tweet = response
-            }
-        }
-        return tweet
+    func postRetweet(completion: (response: Tweet?, error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.retweetWithId(self.identifier, completion: completion)
     }
     
     // reply to tweet
-    func replyToTweet(response: String) -> Tweet? {
-        var tweet: Tweet?
-        TwitterClient.sharedInstance.replyToTweet(response, id_to_reply: self.identifier) { (response, error) -> () in
-            if response != nil {
-                tweet = response
-            }
-        }
-        return tweet
+    func replyToTweet(response: String, completion: (response: Tweet?, error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.replyToTweet(response, id_to_reply: self.identifier, completion: completion)
     }
     
     // delete tweet
-    func deleteTweet() -> Tweet? {
-        var tweet: Tweet?
-        TwitterClient.sharedInstance.deleteTweet(self.identifier) { (response, error) -> () in
-            if response != nil {
-                tweet = response
-            }
-        }
-        return tweet
+    func deleteTweet(completion: (response: Tweet?, error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.deleteTweet(self.identifier, completion: completion)
     }
     
     // favorite tweet (can you favorite your own tweet? yes.)
-    func favoriteTweet() -> Tweet? {
-        var tweet: Tweet?
-        TwitterClient.sharedInstance.favoriteTweetWithId(self.identifier) { (response, error) -> () in
-            if response != nil {
-                tweet = response
-            }
-        }
-        return tweet
+    func favoriteTweet(completion: (response: Tweet?, error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.favoriteTweetWithId(self.identifier, completion: completion)
     }
 }

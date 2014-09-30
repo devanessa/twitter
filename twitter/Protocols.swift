@@ -8,6 +8,10 @@
 
 import UIKit
 
-protocol StatusUpdateDelegate {
+protocol StatusPostDelegate {
     func didPostTweet(tweet: Tweet)
+}
+protocol StatusUpdateDelegate {
+    func didUpdateDataAtRow(row: Int, tweet: Tweet)
+    func didPostReply(tweet: Tweet)
 }
