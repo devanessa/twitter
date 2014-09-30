@@ -187,7 +187,6 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="compose" id="7pZ-Jm-4d6">
                             <color key="tintColor" red="0.47058826679999999" green="0.83921575550000005" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
                             <connections>
-                                <action selector="didTapNew:" destination="vXZ-lx-hvc" id="vfe-lH-WoJ"/>
                                 <segue destination="N7G-Ek-mDJ" kind="presentation" identifier="composeSegue" modalTransitionStyle="coverVertical" id="ZZg-oZ-qB1"/>
                             </connections>
                         </barButtonItem>

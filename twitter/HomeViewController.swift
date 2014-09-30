@@ -10,15 +10,11 @@ import UIKit
 import Social
 import Accounts
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, StatusUpdateDelegate {
     var tweets: [Tweet]?
     
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
-    
-    @IBAction func didTapNew(sender: AnyObject) {
-        self.performSegueWithIdentifier("detailSegue", sender: self)
-    }
     
     @IBAction func logoutUser(sender: AnyObject) {
         User.currentUser?.logout()
@@ -39,6 +35,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
 
     override func viewWillAppear(animated: Bool) {
+        tableView.reloadData()
+    }
+    
+    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         tableView.reloadData()
     }
     
@@ -93,14 +93,23 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             let tweet = tweets![indexPath!.row]
             
             statusViewController.tweet = tweet
+        } else if (segue.identifier == "composeSegue") {
+            var composerVC = segue.destinationViewController as ComposerViewController
+            
+            composerVC.delegate = self
         }
 
     }
 
-    override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
-        tableView.reloadData()
+    func didPostTweet(tweet: Tweet) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        insertTweetAtTop(tweet)
     }
     
+    func insertTweetAtTop(tweet: Tweet) {
+        tweets?.insert(tweet, atIndex: 0)
+        tableView.reloadData()
+    }
 
 }
 

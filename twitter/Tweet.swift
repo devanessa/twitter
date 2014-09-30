@@ -52,9 +52,25 @@ class Tweet: NSObject {
     }
     
     // compose tweet
-    class func postTweet(status: String) -> Tweet? {
+    class func postTweet(status: String, completion: (response: Tweet?, error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.postTweet(status, params: nil, completion: completion)
+    }
+
+    // retweet
+    func postRetweet() -> Tweet? {
         var tweet: Tweet?
-        TwitterClient.sharedInstance.postTweet(status, params: nil) { (response, error) -> () in
+        TwitterClient.sharedInstance.retweetWithId(self.identifier) { (response, error) -> () in
+            if response != nil {
+                tweet = response
+            }
+        }
+        return tweet
+    }
+    
+    // reply to tweet
+    func replyToTweet(response: String) -> Tweet? {
+        var tweet: Tweet?
+        TwitterClient.sharedInstance.replyToTweet(response, id_to_reply: self.identifier) { (response, error) -> () in
             if response != nil {
                 tweet = response
             }
@@ -63,8 +79,24 @@ class Tweet: NSObject {
     }
     
     // delete tweet
+    func deleteTweet() -> Tweet? {
+        var tweet: Tweet?
+        TwitterClient.sharedInstance.deleteTweet(self.identifier) { (response, error) -> () in
+            if response != nil {
+                tweet = response
+            }
+        }
+        return tweet
+    }
     
     // favorite tweet (can you favorite your own tweet? yes.)
-    
-    // reply to tweet
+    func favoriteTweet() -> Tweet? {
+        var tweet: Tweet?
+        TwitterClient.sharedInstance.favoriteTweetWithId(self.identifier) { (response, error) -> () in
+            if response != nil {
+                tweet = response
+            }
+        }
+        return tweet
+    }
 }

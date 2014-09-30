@@ -60,7 +60,7 @@ class StatusViewController: UIViewController {
         handleLabel.text = "\(tweet.user.handle)"
         profileImageView.setProfileImageWithURL(NSURL(string: tweet.user.profileImgUrl))
         statusLabel.text = "\(tweet.text)"
-        dateLabel.text = "\(tweet.date)"
+        dateLabel.text = "\(tweet.date.toPrettyString(simple: false))"
         retweetCount.text = "\(tweet.retweetCount)"
         favoritesCount.text = "\(tweet.favoritesCount)"
     }
@@ -83,12 +83,13 @@ class StatusViewController: UIViewController {
         if retweeted! {
             retweetButton.setImage(retweetedImg, forState: .Normal)
             if toggle {
-                retweetCount.text = "\(tweet.retweetCount + 1)"
+                mainTweet.postRetweet()
+                retweetCount.text = "\(mainTweet.retweetCount + 1)"
             }
         } else {
             retweetButton.setImage(retweetImg, forState: .Normal)
             if toggle {
-                retweetCount.text = "\(tweet.retweetCount)"
+                retweetCount.text = "\(mainTweet.retweetCount)"
             }
         }
     }
@@ -97,12 +98,12 @@ class StatusViewController: UIViewController {
         if favorited! {
             favoriteButton.setImage(favoriteImg, forState: .Normal)
             if toggle {
-                favoritesCount.text = "\(tweet.favoritesCount + 1)"
+                favoritesCount.text = "\(mainTweet.favoritesCount + 1)"
             }
         } else {
             favoriteButton.setImage(unfavoriteImg, forState: .Normal)
             if toggle {
-                favoritesCount.text = "\(tweet.favoritesCount)"
+                favoritesCount.text = "\(mainTweet.favoritesCount)"
             }
         }
     }
