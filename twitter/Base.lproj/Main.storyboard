@@ -252,19 +252,31 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5499999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="140" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ya2-zT-Des">
+                                <rect key="frame" x="535" y="123" width="28.5" height="31"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view alpha="0.14999999999999969" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QPC-lr-cqA">
+                                <rect key="frame" x="0.0" y="62" width="600" height="110"/>
+                                <color key="backgroundColor" red="0.47058826679999999" green="0.83921575550000005" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="5" id="XnW-mo-WoC"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="XnW-mo-WoC"/>
+                                    </mask>
+                                </variation>
+                            </view>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KFJ-oW-N5Q">
-                                <rect key="frame" x="31" y="152" width="538" height="433"/>
+                                <rect key="frame" x="31" y="187" width="538" height="398"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <accessibility key="accessibilityConfiguration" hint="" label="hello"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.5499999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="140" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ya2-zT-Des">
-                                <rect key="frame" x="545" y="123" width="24" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -276,13 +288,17 @@
                             <constraint firstItem="7jo-T7-wB6" firstAttribute="top" secondItem="MO0-To-XNS" secondAttribute="bottom" constant="22" id="4Ub-0o-mwH"/>
                             <constraint firstItem="KFJ-oW-N5Q" firstAttribute="leading" secondItem="tdd-J5-Nu1" secondAttribute="leadingMargin" constant="15" id="8Xl-fm-Wyu"/>
                             <constraint firstItem="mHP-QM-vgs" firstAttribute="top" secondItem="KFJ-oW-N5Q" secondAttribute="bottom" constant="15" id="CUH-1W-0Zp"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="QPC-lr-cqA" secondAttribute="trailing" constant="-16" id="DRf-XM-eYm"/>
+                            <constraint firstItem="QPC-lr-cqA" firstAttribute="leading" secondItem="tdd-J5-Nu1" secondAttribute="leadingMargin" constant="-16" id="Fcu-37-bWp"/>
+                            <constraint firstItem="QPC-lr-cqA" firstAttribute="top" secondItem="MO0-To-XNS" secondAttribute="bottom" id="NoG-Em-dFl"/>
                             <constraint firstAttribute="trailingMargin" secondItem="MO0-To-XNS" secondAttribute="trailing" constant="-16" id="UfH-Zy-lx8"/>
                             <constraint firstItem="MO0-To-XNS" firstAttribute="top" secondItem="tdd-J5-Nu1" secondAttribute="topMargin" constant="18" id="Vdq-hc-6Hn"/>
                             <constraint firstAttribute="trailingMargin" secondItem="KFJ-oW-N5Q" secondAttribute="trailing" constant="15" id="Xub-9H-5ze"/>
                             <constraint firstItem="7jo-T7-wB6" firstAttribute="leading" secondItem="qak-Ue-MsO" secondAttribute="trailing" constant="8" id="eLW-Zn-Tdv"/>
+                            <constraint firstItem="KFJ-oW-N5Q" firstAttribute="top" secondItem="QPC-lr-cqA" secondAttribute="bottom" constant="15" id="en3-jr-6Bf"/>
                             <constraint firstItem="Ulf-Nb-qXi" firstAttribute="leading" secondItem="qak-Ue-MsO" secondAttribute="trailing" constant="8" id="tin-k7-7kl"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Ya2-zT-Des" secondAttribute="trailing" constant="15" id="uqD-WH-kng"/>
-                            <constraint firstItem="KFJ-oW-N5Q" firstAttribute="top" secondItem="MO0-To-XNS" secondAttribute="bottom" constant="90" id="z6B-fp-kQH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Ya2-zT-Des" secondAttribute="trailing" constant="20" id="uqD-WH-kng"/>
+                            <constraint firstItem="KFJ-oW-N5Q" firstAttribute="top" secondItem="MO0-To-XNS" secondAttribute="bottom" constant="125" id="z6B-fp-kQH"/>
                         </constraints>
                     </view>
                     <connections>

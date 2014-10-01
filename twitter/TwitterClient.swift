@@ -119,21 +119,11 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
     }
     
     func retweetWithId(tweetId: String, completion: (response: Tweet?, error: NSError?) -> ()) {
-        POST("1.1/favorites/create.json", parameters: ["id": tweetId], success: {( operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+        POST("1.1/statuses/retweet/\(tweetId).json", parameters: nil, success: {( operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
             let tweet = Tweet(dictionary: response as NSDictionary)
             completion(response: tweet, error: nil)
             }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
                 println("Failed to favorite tweet \(tweetId)")
-                completion(response: nil, error: error)
-        })
-    }
-    
-    func unfavoriteTweetWithCompletion(tweetId: String, completion: (response: Tweet?, error: NSError?) -> ()) {
-        POST("1.1/favorites/destroy.json", parameters: ["id": tweetId], success: {( operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
-            let tweet = Tweet(dictionary: response as NSDictionary)
-            completion(response: tweet, error: nil)
-            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
-                println("Failed to unfavorite tweet \(tweetId)")
                 completion(response: nil, error: error)
         })
     }

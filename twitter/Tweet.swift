@@ -38,7 +38,7 @@ class Tweet: NSObject {
         retweetCount = dictionary["retweet_count"] as? Int ?? 0
         retweeted = dictionary["retweeted"] as? Bool ?? false
         
-        favoritesCount = dictionary["favourites"] as? Int ?? 0 // are you kidding me?
+        favoritesCount = dictionary["favorite_count"] as? Int ?? 0
         favorited = dictionary["favorited"] as? Bool ?? false
     }
     
@@ -71,8 +71,13 @@ class Tweet: NSObject {
         TwitterClient.sharedInstance.deleteTweet(self.identifier, completion: completion)
     }
     
-    // favorite tweet (can you favorite your own tweet? yes.)
+    // favorite tweet
     func favoriteTweet(completion: (response: Tweet?, error: NSError?) -> ()) {
         TwitterClient.sharedInstance.favoriteTweetWithId(self.identifier, completion: completion)
+    }
+    
+    // unfavorite tweet
+    func unfavoriteTweet(completion: (response: Tweet?, error: NSError?) -> ()) {
+        TwitterClient.sharedInstance.unfavoriteTweetWithId(self.identifier, completion: completion)
     }
 }

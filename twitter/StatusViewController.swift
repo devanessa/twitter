@@ -86,13 +86,34 @@ class StatusViewController: UIViewController, StatusPostDelegate {
         if retweeted! {
             retweetButton.setImage(retweetedImg, forState: .Normal)
             if toggle {
-//                mainTweet.postRetweet()
-                retweetCount.text = "\(mainTweet.retweetCount + 1)"
+                mainTweet.postRetweet() { (response, error) in
+                    if response != nil {
+                        self.retweetCount.text = "\(self.mainTweet.retweetCount + 1)"
+                        let postedRetweet = response!
+                        postedRetweet.retweeted = true
+                        self.delegate?.didUpdateDataAtRow(self.rowIndex, tweet: postedRetweet)
+                    } else {
+                        println(error)
+                        // Reset button to un-retweeted state if the post failed
+                        self.retweetButton.setImage(self.retweetImg, forState: .Normal)
+                    }
+                }
             }
         } else {
             retweetButton.setImage(retweetImg, forState: .Normal)
             if toggle {
-                retweetCount.text = "\(mainTweet.retweetCount)"
+                mainTweet.deleteTweet() { (response, error) in
+                    if response != nil {
+                        self.retweetCount.text = "\(self.mainTweet.retweetCount)"
+                        let deletedRetweet = response!
+                        deletedRetweet.retweeted = false
+                        self.delegate?.didUpdateDataAtRow(self.rowIndex, tweet: deletedRetweet)
+                    } else {
+                        println(error)
+                        // Reset button to retweeted state if the post failed
+                        self.retweetButton.setImage(self.retweetedImg, forState: .Normal)
+                    }
+                }
             }
         }
     }
@@ -101,14 +122,41 @@ class StatusViewController: UIViewController, StatusPostDelegate {
         if favorited! {
             favoriteButton.setImage(favoriteImg, forState: .Normal)
             if toggle {
-                favoritesCount.text = "\(mainTweet.favoritesCount + 1)"
+                mainTweet.favoriteTweet() { (response, error) in
+                    if response != nil {
+                        self.favoritesCount.text = "\(self.mainTweet.favoritesCount + 1)"
+                        let favoritedTweet = response!
+                        favoritedTweet.favorited = true
+                        self.delegate?.didUpdateDataAtRow(self.rowIndex, tweet: favoritedTweet)
+                    } else {
+                        println(error)
+                        // Reset button to not-favorited state if the post failed
+                        self.favoriteButton.setImage(self.unfavoriteImg, forState: .Normal)
+                    }
+                }
             }
         } else {
             favoriteButton.setImage(unfavoriteImg, forState: .Normal)
             if toggle {
-                favoritesCount.text = "\(mainTweet.favoritesCount)"
+                mainTweet.unfavoriteTweet() { (response, error) in
+                    if response != nil {
+                        self.favoritesCount.text = "\(self.mainTweet.favoritesCount)"
+                        let unfavoritedtweet = response!
+                        unfavoritedtweet.retweeted = false
+                        self.delegate?.didUpdateDataAtRow(self.rowIndex, tweet: unfavoritedtweet)
+                    } else {
+                        println(error)
+                        // Reset button to retweeted state if the post failed
+                        self.retweetButton.setImage(self.favoriteImg, forState: .Normal)
+                    }
+                }
             }
         }
+    }
+
+    func didPostTweet(tweet: Tweet) {
+        self.dismissViewControllerAnimated(true, completion: nil)
+        delegate?.didPostReply(tweet)
     }
     
     // MARK: - Navigation
@@ -119,9 +167,5 @@ class StatusViewController: UIViewController, StatusPostDelegate {
             composerViewController.delegate = self
         }
     }
-    
-    func didPostTweet(tweet: Tweet) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-        delegate?.didPostReply(tweet)
-    }
+
 }

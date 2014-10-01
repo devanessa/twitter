@@ -94,6 +94,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             statusViewController.delegate = self
             statusViewController.tweet = tweet
+            statusViewController.rowIndex = indexPath!.row
             
         } else if (segue.identifier == "composeSegue") {
             var composerVC = segue.destinationViewController as ComposerViewController
@@ -108,11 +109,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func didUpdateDataAtRow(row: Int, tweet: Tweet) {
-        // update cell view?
+        // update tweet object for tweet in array
+        tweets![row] = tweet
+        // reload here?
     }
     
     func didPostTweet(tweet: Tweet) {
         self.dismissViewControllerAnimated(true, completion: nil)
+        println(tweet.text)
         insertTweetAtTop(tweet)
     }
     
