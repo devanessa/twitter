@@ -27,6 +27,9 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var apiType: APIType = APIType.Timeline
     var user: User?
     var tweets: [Tweet]?
+    var noMoreTweets: Bool = false
+    
+    let REQUEST_COUNT = 20
     
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
@@ -59,51 +62,72 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Dispose of any resources that can be recreated.
     }
     
-    func fetchTweets() {
+    func fetchTweets(paging: Bool = false) {
+        var params = ["count": "\(REQUEST_COUNT)"]
+        if paging {
+            params["since_id"] = self.tweets!.last!.identifier
+        }
         if user != nil {
             // Get timeline view for particular user
-            TwitterClient.sharedInstance.userTimelineWithParams(user!.handle, params: nil, completion: { (tweets, error) -> () in
-                self.tweets = tweets
-                self.tableView.reloadData()
-            })
+            TwitterClient.sharedInstance.userTimelineWithParams(user!.handle, params: params, completion: handleTimelineRequest)
         } else {
             if apiType == APIType.Timeline {
-                TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
-                    self.tweets = tweets
-                    self.tableView.reloadData()
-                })
+                TwitterClient.sharedInstance.homeTimelineWithParams(params, completion: handleTimelineRequest)
             } else if apiType == APIType.Mentions {
-                TwitterClient.sharedInstance.userMentionsWithParams(nil, completion: { (tweets, error) -> () in
-                    self.tweets = tweets
-                    self.tableView.reloadData()
-                })
+                TwitterClient.sharedInstance.userMentionsWithParams(params, completion: handleTimelineRequest)
             }
         }
     }
 
+    func handleTimelineRequest(tweets: [Tweet]?, error: NSError?) -> () {
+        if self.tweets != nil && tweets != nil {
+            self.tweets! += tweets!
+            if tweets!.count < REQUEST_COUNT {
+                noMoreTweets = true
+            }
+            self.tableView.reloadData()
+        } else {
+            noMoreTweets = true
+        }
+    }
+    
     func refreshData() {
         fetchTweets()
         refreshControl.endRefreshing()
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let tweet = tweets![indexPath.row]
-        if tweet.retweet != nil {
-            let cell = tableView.dequeueReusableCellWithIdentifier("retweetCell") as RetweetTableViewCell
-            cell.populateCellFromTweet(tweet)
-            cell.delegate = self
+        if indexPath.row == self.tweets!.count {
+            let cell = tableView.dequeueReusableCellWithIdentifier("spinnerCell") as UITableViewCell
+            if !noMoreTweets {
+                fetchTweets(paging: true)
+            } else {
+                tableView.reloadData()
+            }
             return cell
         } else {
-            let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as TweetTableViewCell
-            cell.populateCellFromTweet(tweet)
-            cell.delegate = self
-            return cell
+            let tweet = tweets![indexPath.row]
+            if tweet.retweet != nil {
+                let cell = tableView.dequeueReusableCellWithIdentifier("retweetCell") as RetweetTableViewCell
+                cell.populateCellFromTweet(tweet)
+                cell.delegate = self
+                return cell
+            } else {
+                let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as TweetTableViewCell
+                cell.populateCellFromTweet(tweet)
+                cell.delegate = self
+                return cell
+            }
         }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.tweets != nil {
-            return self.tweets!.count
+            if noMoreTweets {
+                return self.tweets!.count
+            } else {
+                return self.tweets!.count + 1
+            }
         } else {
             return 0
         }
@@ -130,14 +154,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
             
             composerVC.delegate = self
         }
-//        else if (segue.identifier == "profileSegue") {
-//            var profileVC = segue.destinationViewController as ProfileViewController
-//            
-//            let indexPath = tableView.indexPathForSelectedRow()
-//            let tweet = tweets![indexPath!.row]
-//            
-//            profileVC.user = tweet.user
-//        }
 
     }
 
@@ -172,4 +188,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
 }
+
+
 

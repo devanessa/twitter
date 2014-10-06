@@ -465,6 +465,22 @@
                                             <outlet property="userImageView" destination="uI9-ne-H5W" id="ftL-BQ-haO"/>
                                         </connections>
                                     </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="spinnerCell" rowHeight="35" id="6Wt-qV-5kj" userLabel="spinnerCell" customClass="RetweetTableViewCell" customModule="twitter" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Wt-qV-5kj" id="OKh-Av-ZE8">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="D7c-dL-ZBz">
+                                                    <rect key="frame" x="290" y="7.5" width="20" height="20"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="D7c-dL-ZBz" secondAttribute="centerY" id="VAw-lu-CcK"/>
+                                                <constraint firstAttribute="centerX" secondItem="D7c-dL-ZBz" secondAttribute="centerX" id="viV-vi-cwq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
