@@ -8,21 +8,18 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController{
+class ProfileViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImgView: UIImageView!
     
     var user: User!
-    var tweets: [Tweet]?
     
     @IBOutlet weak var numTweetsLabel: UILabel!
     @IBOutlet weak var numFollowingLabel: UILabel!
     @IBOutlet weak var numFollowersLabel: UILabel!
     
     @IBOutlet weak var tweetsView: UIView!
-    
-    var refreshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,7 +38,7 @@ class ProfileViewController: UIViewController{
         numFollowingLabel.text = "\(user.friendsCount) Following"
         
         var tweetsVC = self.storyboard!.instantiateViewControllerWithIdentifier("TweetsViewController") as HomeViewController
-        tweetsVC.user = user
+//        tweetsVC.user = user
         self.addChildViewController(tweetsVC)
         tweetsVC.view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
         tweetsVC.view.frame = self.tweetsView.bounds
@@ -50,6 +47,15 @@ class ProfileViewController: UIViewController{
         
         navigationItem.title = user.displayName
     }
+    
+//    override func fetchTweets(#paging: Bool) {
+//        var params = ["count": "\(REQUEST_COUNT)"]
+//        if paging {
+//            params["since_id"] = self.tweets!.last!.identifier
+//        }
+//        TwitterClient.sharedInstance.userTimelineWithParams(user.handle, params: params, completion: handleTimelineRequest)
+//    }
+    
     /*
     // MARK: - Navigation
 

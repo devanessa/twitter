@@ -7,30 +7,10 @@
 //
 
 import UIKit
-import Social
-import Accounts
 
-enum APIType {
-    case Timeline, Mentions
-    
-    func titleString() -> String {
-        switch self {
-        case .Timeline:
-            return "Home"
-        case .Mentions:
-            return "Mentions"
-        }
-    }
-}
 
-class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, StatusPostDelegate, StatusUpdateDelegate, ProfileImageTappedDelegate {
-    var apiType: APIType = APIType.Timeline
-    var user: User?
-    var tweets: [Tweet]?
-    var noMoreTweets: Bool = false
-    
-    let REQUEST_COUNT = 15
-    
+class HomeViewController: TimelineViewController, StatusPostDelegate, StatusUpdateDelegate {
+
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
 
@@ -45,6 +25,10 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
         refreshControl.addTarget(self, action: Selector("refreshData"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refreshControl)
         fetchTweets()
+        
+        spinnerCellId = "spinnerCell"
+        retweetCellId = "retweetCell"
+        tweetCellId = "tweetCell"
 
         navigationItem.title = apiType.titleString()
     }
@@ -56,94 +40,15 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func didRotateFromInterfaceOrientation(fromInterfaceOrientation: UIInterfaceOrientation) {
         tableView.reloadData()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    func fetchTweets(paging: Bool = false) {
-//        var params = ["count": "\(REQUEST_COUNT)"]
-        var params: NSDictionary?
-        if paging {
-//            params["since_id"] = self.tweets!.last!.identifier
-            let oldestId = self.tweets!.last!.identifier.toInt()! - 1
-            params = ["max_id": oldestId, "include_rts": "1"]
-        }
-        if user != nil {
-            // Get timeline view for particular user
-            TwitterClient.sharedInstance.userTimelineWithParams(user!.handle, params: params, completion: handleTimelineRequest)
-        } else {
-            if apiType == APIType.Timeline {
-                TwitterClient.sharedInstance.homeTimelineWithParams(params, completion: handleTimelineRequest)
-            } else if apiType == APIType.Mentions {
-                TwitterClient.sharedInstance.userMentionsWithParams(params, completion: handleTimelineRequest)
-            }
-        }
-    }
 
-    func handleTimelineRequest(tweets: [Tweet]?, error: NSError?) -> () {
-        if tweets != nil {
-            println("got \(tweets!.count) tweets")
-            if self.tweets == nil {
-                self.tweets = tweets
-            } else {
-                self.tweets! += tweets!
-            }
-            if tweets!.count < REQUEST_COUNT {
-                noMoreTweets = true
-            }
-            self.tableView.reloadData()
-        } else {
-            noMoreTweets = true
-        }
+    override func handleTimelineRequest(tweets: [Tweet]?, error: NSError?) -> () {
+        super.handleTimelineRequest(tweets, error: error)
+        self.tableView.reloadData()
     }
     
     func refreshData() {
         fetchTweets()
         refreshControl.endRefreshing()
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.row == self.tweets!.count {
-            let cell = tableView.dequeueReusableCellWithIdentifier("spinnerCell") as UITableViewCell
-            if !noMoreTweets {
-                fetchTweets(paging: true)
-            } else {
-                tableView.reloadData()
-            }
-            return cell
-        } else {
-            let tweet = tweets![indexPath.row]
-            if tweet.retweet != nil {
-                let cell = tableView.dequeueReusableCellWithIdentifier("retweetCell") as RetweetTableViewCell
-                cell.populateCellFromTweet(tweet)
-                cell.delegate = self
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as TweetTableViewCell
-                cell.populateCellFromTweet(tweet)
-                cell.delegate = self
-                return cell
-            }
-        }
-    }
-    
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if self.tweets != nil {
-            if noMoreTweets {
-                return self.tweets!.count
-            } else {
-                return self.tweets!.count + 1
-            }
-        } else {
-            return 0
-        }
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("tweetDetails", sender: tableView)
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -184,16 +89,6 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func insertTweetAtTop(tweet: Tweet) {
         tweets?.insert(tweet, atIndex: 0)
         tableView.reloadData()
-    }
-
-    func didTapProfileImg(user: User) {
-        if user.handle != self.user?.handle {
-            // push profile view controller into view
-            let pVC = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as ProfileViewController
-            pVC.user = user
-//            self.performSegueWithIdentifier(<#identifier: String#>, sender: <#AnyObject?#>)
-            self.navigationController?.pushViewController(pVC, animated: true)
-        }
     }
 }
 
