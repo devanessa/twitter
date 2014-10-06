@@ -17,6 +17,11 @@ class TweetTableViewCell: UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var statusLabel: UILabel!
+    
+    var user: User?
+    
+    var delegate: ProfileImageTappedDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,7 +33,12 @@ class TweetTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func didTapProfileImg(sender: UIButton) {
+        delegate?.didTapProfileImg(user!)
+    }
+    
     func populateCellFromTweet(tweet: Tweet) {
+        user = tweet.user
         displayNameLabel.text = tweet.user.displayName
         tweetLabel.text = tweet.text
         twitterHandleLabel.text = "@\(tweet.user.handle)"  // make this attributed?
@@ -47,6 +57,10 @@ class RetweetTableViewCell: UITableViewCell {
     @IBOutlet weak var statusLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
+    var user: User?
+    
+    var delegate: ProfileImageTappedDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -58,8 +72,13 @@ class RetweetTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
+    @IBAction func didTapProfileImg(sender: UIButton) {
+        delegate?.didTapProfileImg(user!)
+    }
+    
     func populateCellFromTweet(tweet: Tweet) {
         let retweetStatus = tweet.retweet!
+        user = retweetStatus.user
         displayNameLabel.text = retweetStatus.user.displayName
         retweetLabel.text = retweetStatus.text
         twitterHandleLabel.text = "@\(retweetStatus.user.handle)"  // make this attributed?
@@ -67,4 +86,5 @@ class RetweetTableViewCell: UITableViewCell {
         userImageView.setProfileImageWithURL(NSURL(string: retweetStatus.user.profileImgUrl))
         dateLabel.text = tweet.date.toPrettyString()
     }
+    
 }

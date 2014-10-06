@@ -17,8 +17,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "userDidLogout", name: userDidLogoutNotification, object: nil)
         if User.currentUser != nil {
-            // launch in Home view automatically
-            let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController") as UIViewController
+//            // launch in Home view automatically
+            let vc = storyboard.instantiateViewControllerWithIdentifier("ContainterNavigationController") as UIViewController
+//            let vc = storyboard.instantiateViewControllerWithIdentifier("TweetsNavigationController") as UIViewController
             window?.rootViewController = vc
             
         }

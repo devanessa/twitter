@@ -10,16 +10,27 @@ import UIKit
 import Social
 import Accounts
 
-class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, StatusPostDelegate, StatusUpdateDelegate {
+enum APIType {
+    case Timeline, Mentions
+    
+    func titleString() -> String {
+        switch self {
+        case .Timeline:
+            return "Home"
+        case .Mentions:
+            return "Mentions"
+        }
+    }
+}
+
+class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, StatusPostDelegate, StatusUpdateDelegate, ProfileImageTappedDelegate {
+    var apiType: APIType = APIType.Timeline
+    var user: User?
     var tweets: [Tweet]?
     
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
-    
-    @IBAction func logoutUser(sender: AnyObject) {
-        User.currentUser?.logout()
-    }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,8 +41,9 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to Refresh", attributes: [NSForegroundColorAttributeName : UIColor.blackColor()])
         refreshControl.addTarget(self, action: Selector("refreshData"), forControlEvents: UIControlEvents.ValueChanged)
         tableView.addSubview(refreshControl)
-
         fetchTweets()
+
+        navigationItem.title = apiType.titleString()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -48,10 +60,25 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     }
     
     func fetchTweets() {
-        TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
-            self.tweets = tweets
-            self.tableView.reloadData()
-        })
+        if user != nil {
+            // Get timeline view for particular user
+            TwitterClient.sharedInstance.userTimelineWithParams(user!.handle, params: nil, completion: { (tweets, error) -> () in
+                self.tweets = tweets
+                self.tableView.reloadData()
+            })
+        } else {
+            if apiType == APIType.Timeline {
+                TwitterClient.sharedInstance.homeTimelineWithParams(nil, completion: { (tweets, error) -> () in
+                    self.tweets = tweets
+                    self.tableView.reloadData()
+                })
+            } else if apiType == APIType.Mentions {
+                TwitterClient.sharedInstance.userMentionsWithParams(nil, completion: { (tweets, error) -> () in
+                    self.tweets = tweets
+                    self.tableView.reloadData()
+                })
+            }
+        }
     }
 
     func refreshData() {
@@ -64,10 +91,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         if tweet.retweet != nil {
             let cell = tableView.dequeueReusableCellWithIdentifier("retweetCell") as RetweetTableViewCell
             cell.populateCellFromTweet(tweet)
+            cell.delegate = self
             return cell
         } else {
             let cell = tableView.dequeueReusableCellWithIdentifier("tweetCell") as TweetTableViewCell
             cell.populateCellFromTweet(tweet)
+            cell.delegate = self
             return cell
         }
     }
@@ -101,6 +130,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             composerVC.delegate = self
         }
+//        else if (segue.identifier == "profileSegue") {
+//            var profileVC = segue.destinationViewController as ProfileViewController
+//            
+//            let indexPath = tableView.indexPathForSelectedRow()
+//            let tweet = tweets![indexPath!.row]
+//            
+//            profileVC.user = tweet.user
+//        }
 
     }
 
@@ -125,5 +162,14 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         tableView.reloadData()
     }
 
+    func didTapProfileImg(user: User) {
+        if user.handle != self.user?.handle {
+            // push profile view controller into view
+            let pVC = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as ProfileViewController
+            pVC.user = user
+//            self.performSegueWithIdentifier(<#identifier: String#>, sender: <#AnyObject?#>)
+            self.navigationController?.pushViewController(pVC, animated: true)
+        }
+    }
 }
 

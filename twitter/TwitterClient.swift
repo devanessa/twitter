@@ -40,6 +40,30 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
 
     }
     
+    func userTimelineWithParams(handleName: String, params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        var parameters = ["screen_name": handleName]
+//        parameters += params!
+        GET("1.1/statuses/user_timeline.json", parameters: parameters, success: {( operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            var tweets = Tweet.tweetsWithArray(response as [NSDictionary])
+            completion(tweets: tweets, error: nil)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error getting user tweets: \(error)")
+                completion(tweets: nil, error: error)
+        })
+        
+    }
+    
+    func userMentionsWithParams(params: NSDictionary?, completion: (tweets: [Tweet]?, error: NSError?) -> ()) {
+        GET("1.1/statuses/mentions_timeline.json", parameters: params, success: {( operation: AFHTTPRequestOperation!, response: AnyObject!) -> Void in
+            var tweets = Tweet.tweetsWithArray(response as [NSDictionary])
+            completion(tweets: tweets, error: nil)
+            }, failure: { (operation: AFHTTPRequestOperation!, error: NSError!) -> Void in
+                println("error getting user tweets: \(error)")
+                completion(tweets: nil, error: error)
+        })
+        
+    }
+    
     func loginWithCompletion(completion: (user: User?, error: NSError?) -> ()) {
         loginCompletion = completion
         
@@ -54,6 +78,7 @@ class TwitterClient: BDBOAuth1RequestOperationManager {
         }
     }
     
+
     func openURL(url: NSURL) {
         fetchAccessTokenWithPath("oauth/access_token", method: "POST", requestToken: BDBOAuthToken(queryString: url.query), success: { (accessToken: BDBOAuthToken!) -> Void in
             println("Got the access token!")

@@ -15,3 +15,6 @@ protocol StatusUpdateDelegate {
     func didUpdateDataAtRow(row: Int, tweet: Tweet)
     func didPostReply(tweet: Tweet)
 }
+protocol ProfileImageTappedDelegate {
+    func didTapProfileImg(user: User)
+}

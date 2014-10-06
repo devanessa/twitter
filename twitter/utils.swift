@@ -21,6 +21,9 @@ extension UIImageView {
             })
         }
     }
+    func setImagewithURL(url: NSURL, animate: Bool = false) {
+        self.setImageWithURL(url)
+    }
 }
 
 let secondsInMin: NSTimeInterval = 60
