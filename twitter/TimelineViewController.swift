@@ -33,6 +33,8 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
     
     var spinnerCellId, retweetCellId, tweetCellId: String?
     
+    var user: User?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -46,12 +48,16 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
         } else {
             isPaging = false
         }
-        if apiType == APIType.Timeline {
-            TwitterClient.sharedInstance.homeTimelineWithParams(params, completion: handleTimelineRequest)
-        } else if apiType == APIType.Mentions {
-            TwitterClient.sharedInstance.userMentionsWithParams(params, completion: handleTimelineRequest)
+        if user != nil {
+            // Get timeline view for particular user
+            TwitterClient.sharedInstance.userTimelineWithParams(user!.handle, params: params, completion: handleTimelineRequest)
+        } else {
+            if apiType == APIType.Timeline {
+                TwitterClient.sharedInstance.homeTimelineWithParams(params, completion: handleTimelineRequest)
+            } else if apiType == APIType.Mentions {
+                TwitterClient.sharedInstance.userMentionsWithParams(params, completion: handleTimelineRequest)
+            }
         }
-        
     }
     
     func handleTimelineRequest(tweets: [Tweet]?, error: NSError?) -> () {
@@ -114,11 +120,13 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
 
     
     func didTapProfileImg(user: User) {
-        // push profile view controller into view
-        let pVC = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as ProfileViewController
-        pVC.user = user
-        //            self.performSegueWithIdentifier(<#identifier: String#>, sender: <#AnyObject?#>)
-        self.navigationController?.pushViewController(pVC, animated: true)
+        if user.handle != self.user?.handle {
+            // push profile view controller into view
+            let pVC = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as ProfileViewController
+            pVC.user = user
+            //            self.performSegueWithIdentifier(<#identifier: String#>, sender: <#AnyObject?#>)
+            self.navigationController?.pushViewController(pVC, animated: true)
+        }
     }
 }
 

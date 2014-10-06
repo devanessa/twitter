@@ -8,16 +8,10 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: TimelineViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var backgroundImgView: UIImageView!
-    
-    var user: User!
-    
-    @IBOutlet weak var numTweetsLabel: UILabel!
-    @IBOutlet weak var numFollowingLabel: UILabel!
-    @IBOutlet weak var numFollowersLabel: UILabel!
     
     @IBOutlet weak var tweetsView: UIView!
     
@@ -30,22 +24,27 @@ class ProfileViewController: UIViewController {
 //            }
 //        }
 
-        if user.headerImgUrl != nil {
-            self.backgroundImgView.setImagewithURL(NSURL(string: user.headerImgUrl!))
+        if user!.headerImgUrl != nil {
+            self.backgroundImgView.setImagewithURL(NSURL(string: user!.headerImgUrl!))
         }
-        numTweetsLabel.text = "\(user.numTweets) Tweets"
-        numFollowersLabel.text = "\(user.followersCount) Followers"
-        numFollowingLabel.text = "\(user.friendsCount) Following"
+        numTweetsLabel.text = "\(user!.numTweets) Tweets"
+        numFollowersLabel.text = "\(user!.followersCount) Followers"
+        numFollowingLabel.text = "\(user!.friendsCount) Following"
         
         var tweetsVC = self.storyboard!.instantiateViewControllerWithIdentifier("TweetsViewController") as HomeViewController
-//        tweetsVC.user = user
+        tweetsVC.user = user
         self.addChildViewController(tweetsVC)
         tweetsVC.view.autoresizingMask = .FlexibleHeight | .FlexibleWidth
         tweetsVC.view.frame = self.tweetsView.bounds
         self.tweetsView.addSubview(tweetsVC.view)
         tweetsVC.didMoveToParentViewController(self)
         
-        navigationItem.title = user.displayName
+//        navigationController?.navigationBar.setBackgroundImage(UIImage(), forBarMetrics: .Default)
+//        navigationController?.navigationBar.shadowImage = UIImage()
+//        navigationController?.navigationBar.translucent = true
+//        navigationController?.view.backgroundColor = UIColor.clearColor()
+        
+        navigationItem.title = user!.displayName
     }
     
 //    override func fetchTweets(#paging: Bool) {
@@ -54,6 +53,10 @@ class ProfileViewController: UIViewController {
 //            params["since_id"] = self.tweets!.last!.identifier
 //        }
 //        TwitterClient.sharedInstance.userTimelineWithParams(user.handle, params: params, completion: handleTimelineRequest)
+//    }
+//    override func handleTimelineRequest(tweets: [Tweet]?, error: NSError?) -> () {
+//        super.handleTimelineRequest(tweets, error: error)
+//        self.tableView.reloadData()
 //    }
     
     /*
