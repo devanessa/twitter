@@ -29,7 +29,7 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var tweets: [Tweet]?
     var noMoreTweets: Bool = false
     
-    let REQUEST_COUNT = 20
+    let REQUEST_COUNT = 15
     
     @IBOutlet weak var tableView: UITableView!
     var refreshControl = UIRefreshControl()
@@ -63,9 +63,12 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func fetchTweets(paging: Bool = false) {
-        var params = ["count": "\(REQUEST_COUNT)"]
+//        var params = ["count": "\(REQUEST_COUNT)"]
+        var params: NSDictionary?
         if paging {
-            params["since_id"] = self.tweets!.last!.identifier
+//            params["since_id"] = self.tweets!.last!.identifier
+            let oldestId = self.tweets!.last!.identifier.toInt()! - 1
+            params = ["max_id": oldestId, "include_rts": "1"]
         }
         if user != nil {
             // Get timeline view for particular user
@@ -80,8 +83,13 @@ class HomeViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
 
     func handleTimelineRequest(tweets: [Tweet]?, error: NSError?) -> () {
-        if self.tweets != nil && tweets != nil {
-            self.tweets! += tweets!
+        if tweets != nil {
+            println("got \(tweets!.count) tweets")
+            if self.tweets == nil {
+                self.tweets = tweets
+            } else {
+                self.tweets! += tweets!
+            }
             if tweets!.count < REQUEST_COUNT {
                 noMoreTweets = true
             }
