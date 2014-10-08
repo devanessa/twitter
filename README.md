@@ -14,7 +14,7 @@ Profile page
 * [x] Contains a section with the users basic stats: # tweets, # following, # followers
 * [x] Optional: Implement the paging view for the user description.
 * [ ] Optional: As the paging view moves, increase the opacity of the background screen. 
-* [x] Optional: Pulling down the profile page should ~blur~ and resize the header image.
+* [x] Optional: Pulling down the profile page should ~~blur~~ and resize the header image.
 
 Home Timeline
 ---------
