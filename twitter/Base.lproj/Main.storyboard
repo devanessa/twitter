@@ -2,7 +2,6 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0g6-Mn-7L6">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -159,36 +158,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z33-fm-1FT">
-                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzd-y4-YfM" userLabel="ProfileContainerView">
-                                <rect key="frame" x="0.0" y="64" width="600" height="200"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="QJE-JQ-h7H">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
-                                    </imageView>
-                                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ouS-K4-QYU">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
-                                    </scrollView>
-                                </subviews>
-                                <color key="backgroundColor" red="0.71574368099999996" green="0.79166871780000003" blue="0.90758529970000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pVi-JX-3Te">
+                                <rect key="frame" x="0.0" y="64" width="600" height="190"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="ouS-K4-QYU" secondAttribute="bottom" id="RZd-9H-5NF"/>
-                                    <constraint firstAttribute="width" secondItem="QJE-JQ-h7H" secondAttribute="width" id="Yq1-fm-e7K"/>
-                                    <constraint firstItem="QJE-JQ-h7H" firstAttribute="top" secondItem="xzd-y4-YfM" secondAttribute="top" id="ZUt-QQ-cEA"/>
-                                    <constraint firstItem="ouS-K4-QYU" firstAttribute="leading" secondItem="xzd-y4-YfM" secondAttribute="leading" id="dGw-MP-eSJ"/>
-                                    <constraint firstItem="QJE-JQ-h7H" firstAttribute="leading" secondItem="xzd-y4-YfM" secondAttribute="leading" id="hgE-HO-aHX"/>
-                                    <constraint firstAttribute="width" secondItem="xzd-y4-YfM" secondAttribute="height" multiplier="3:1" id="j3G-DB-v5x"/>
-                                    <constraint firstAttribute="trailing" secondItem="ouS-K4-QYU" secondAttribute="trailing" id="lZI-SP-ehk"/>
-                                    <constraint firstAttribute="height" secondItem="QJE-JQ-h7H" secondAttribute="height" id="oRZ-B4-oFO"/>
-                                    <constraint firstItem="ouS-K4-QYU" firstAttribute="top" secondItem="xzd-y4-YfM" secondAttribute="top" id="wRh-51-MGw"/>
+                                    <constraint firstAttribute="height" constant="190" id="k8j-hd-f0U"/>
                                 </constraints>
-                            </view>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ilv-0L-vgP">
-                                <rect key="frame" x="0.0" y="319" width="600" height="536"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="statsCell" rowHeight="56" id="lp1-fN-0Wc" customClass="StatsTableViewCell" customModule="twitter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
@@ -267,7 +246,7 @@
                                             <outlet property="numTweetsLabel" destination="OlU-tH-IAs" id="1Ix-SZ-0qt"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tweetCell" rowHeight="100" id="hXs-2R-fbc" customClass="TweetTableViewCell" customModule="twitter" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="tweetCell2" rowHeight="100" id="hXs-2R-fbc" customClass="TweetTableViewCell" customModule="twitter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hXs-2R-fbc" id="A0A-DY-KFe">
@@ -301,7 +280,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Tweet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqL-r2-62A">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Tweet" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GqL-r2-62A">
                                                     <rect key="frame" x="74" y="33" width="503" height="46"/>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -343,7 +322,7 @@
                                             <outlet property="userImageView" destination="hmy-UU-Uh6" id="fPl-NF-Ay7"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="retweetCell" rowHeight="139" id="QDq-cB-U0H" customClass="RetweetTableViewCell" customModule="twitter" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="retweetCell2" rowHeight="139" id="QDq-cB-U0H" customClass="RetweetTableViewCell" customModule="twitter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QDq-cB-U0H" id="eSA-ON-Z0j">
@@ -368,7 +347,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Retweet" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5R7-GM-b8V">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Retweet" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5R7-GM-b8V">
                                                     <rect key="frame" x="74" y="54" width="503" height="66"/>
                                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -438,7 +417,7 @@
                                             <outlet property="userImageView" destination="bZ1-TU-yfX" id="JMJ-c0-Xez"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="spinnerCell" rowHeight="35" id="RLf-xD-Ubw" userLabel="spinnerCell" customClass="RetweetTableViewCell" customModule="twitter" customModuleProvider="target">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="spinnerCell2" rowHeight="35" id="RLf-xD-Ubw" userLabel="spinnerCell" customClass="RetweetTableViewCell" customModule="twitter" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RLf-xD-Ubw" id="1A9-Tw-ULl">
@@ -456,20 +435,25 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cie-mk-FPl">
+                                <rect key="frame" x="0.0" y="64" width="600" height="125"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="125" id="AxW-zi-eCv"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" red="0.86995995191153985" green="0.88625762263624164" blue="0.90712691326530615" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstItem="xzd-y4-YfM" firstAttribute="top" secondItem="smq-48-rY0" secondAttribute="bottom" id="25C-ud-q2R"/>
-                            <constraint firstAttribute="trailing" secondItem="Z33-fm-1FT" secondAttribute="trailing" id="9yb-7M-CPp"/>
-                            <constraint firstItem="xzd-y4-YfM" firstAttribute="leading" secondItem="9qa-nS-W6p" secondAttribute="leadingMargin" constant="-16" id="IvS-ZE-NWg"/>
+                            <constraint firstItem="Ilv-0L-vgP" firstAttribute="top" secondItem="9qa-nS-W6p" secondAttribute="top" id="FvE-MP-Cry"/>
                             <constraint firstItem="Ilv-0L-vgP" firstAttribute="leading" secondItem="9qa-nS-W6p" secondAttribute="leading" id="KRe-O8-Qua"/>
-                            <constraint firstItem="Ilv-0L-vgP" firstAttribute="top" secondItem="smq-48-rY0" secondAttribute="bottom" constant="255" id="M04-Be-VCe"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="xzd-y4-YfM" secondAttribute="trailing" constant="-16" id="Sa1-v0-aPb"/>
-                            <constraint firstItem="Ilv-0L-vgP" firstAttribute="height" secondItem="Z33-fm-1FT" secondAttribute="height" id="X9s-hu-5OR"/>
-                            <constraint firstItem="Z33-fm-1FT" firstAttribute="top" secondItem="smq-48-rY0" secondAttribute="bottom" id="Znz-g7-cys"/>
-                            <constraint firstItem="Z33-fm-1FT" firstAttribute="leading" secondItem="9qa-nS-W6p" secondAttribute="leading" id="lec-bA-A21"/>
+                            <constraint firstAttribute="trailing" secondItem="pVi-JX-3Te" secondAttribute="trailing" id="QJc-ig-iYs"/>
+                            <constraint firstItem="pVi-JX-3Te" firstAttribute="leading" secondItem="9qa-nS-W6p" secondAttribute="leading" id="T2p-oA-OGH"/>
+                            <constraint firstAttribute="trailing" secondItem="cie-mk-FPl" secondAttribute="trailing" id="fXb-bL-Wpk"/>
+                            <constraint firstItem="ur3-Pd-sSw" firstAttribute="top" secondItem="Ilv-0L-vgP" secondAttribute="bottom" id="m38-lf-V8T"/>
                             <constraint firstAttribute="trailing" secondItem="Ilv-0L-vgP" secondAttribute="trailing" id="m7J-81-T8S"/>
-                            <constraint firstItem="ur3-Pd-sSw" firstAttribute="top" secondItem="Z33-fm-1FT" secondAttribute="bottom" id="oMe-d8-TY0"/>
+                            <constraint firstItem="pVi-JX-3Te" firstAttribute="top" secondItem="smq-48-rY0" secondAttribute="bottom" id="mk8-4X-vJc"/>
+                            <constraint firstItem="cie-mk-FPl" firstAttribute="top" secondItem="smq-48-rY0" secondAttribute="bottom" id="nss-ac-Yjq"/>
+                            <constraint firstItem="cie-mk-FPl" firstAttribute="leading" secondItem="9qa-nS-W6p" secondAttribute="leading" id="orL-MX-JnF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="MX8-EL-1E5">
@@ -480,11 +464,11 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="backgroundImgView" destination="QJE-JQ-h7H" id="LQh-ep-7D7"/>
-                        <outlet property="numFollowersLabel" destination="e6L-0a-9oi" id="EQ2-g4-qnN"/>
-                        <outlet property="numFollowingLabel" destination="ZIg-ue-5zX" id="ZTl-Pc-1SQ"/>
-                        <outlet property="numTweetsLabel" destination="OlU-tH-IAs" id="HCr-x3-8s1"/>
-                        <outlet property="scrollView" destination="ouS-K4-QYU" id="hHm-bb-RCS"/>
+                        <outlet property="backgroundImgView" destination="pVi-JX-3Te" id="RVM-ip-EdO"/>
+                        <outlet property="headerHeight" destination="k8j-hd-f0U" id="kBv-cD-xGq"/>
+                        <outlet property="scrollView" destination="cie-mk-FPl" id="Z77-yI-nf5"/>
+                        <outlet property="tableView" destination="Ilv-0L-vgP" id="gEU-gZ-yoD"/>
+                        <segue destination="upx-Us-Iuf" kind="show" identifier="tweetDetails" id="HOB-Va-gfF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KfT-NO-F74" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1172,6 +1156,7 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="D02-UD-gQn"/>
+        <segue reference="HOB-Va-gfF"/>
     </inferredMetricsTieBreakers>
     <color key="tintColor" red="0.47058826679999999" green="0.83921575550000005" blue="0.99215692280000001" alpha="1" colorSpace="deviceRGB"/>
 </document>

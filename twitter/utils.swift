@@ -36,7 +36,7 @@ extension NSDate {
             let pastInSeconds = -(self.timeIntervalSinceNow)
             
             if pastInSeconds < secondsInMin {
-                return "\(pastInSeconds)s"
+                return "\(Int(pastInSeconds))s"
             } else if pastInSeconds < secondsInMin * minInHours {
                 let minutes = Int(pastInSeconds / secondsInMin)
                 return "\(minutes)m"

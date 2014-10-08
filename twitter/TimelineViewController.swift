@@ -85,6 +85,13 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
                 tableView.reloadData()
             }
             return cell
+        } else if indexPath.row == 0 && user != nil {
+            // Present the stats for a user profile table
+            let cell = tableView.dequeueReusableCellWithIdentifier("statsCell") as StatsTableViewCell
+            cell.numFollowersLabel.text = "\(user!.followersCount) Followers"
+            cell.numFollowingLabel.text = "\(user!.friendsCount) Following"
+            cell.numTweetsLabel.text = "\(user!.numTweets) Tweets"
+            return cell
         } else {
             let tweet = tweets![indexPath.row]
             if tweet.retweet != nil {
@@ -103,11 +110,16 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if self.tweets != nil {
-            if noMoreTweets {
-                return self.tweets!.count
-            } else {
-                return self.tweets!.count + 1
+            let tweetCount = self.tweets!.count
+            var extrasCount = 0
+            if !noMoreTweets {
+                extrasCount += 1
             }
+            if user != nil {
+                // this is for the stats profile cell
+                extrasCount += 1
+            }
+            return tweetCount + extrasCount
         } else {
             return 0
         }
@@ -124,7 +136,6 @@ class TimelineViewController: UIViewController, UITableViewDataSource, UITableVi
             // push profile view controller into view
             let pVC = self.storyboard!.instantiateViewControllerWithIdentifier("ProfileViewController") as ProfileViewController
             pVC.user = user
-            //            self.performSegueWithIdentifier(<#identifier: String#>, sender: <#AnyObject?#>)
             self.navigationController?.pushViewController(pVC, animated: true)
         }
     }
