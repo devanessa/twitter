@@ -1,4 +1,4 @@
-twitter edux
+twitter redux
 =======
 
 Time Spent: 20 hours
